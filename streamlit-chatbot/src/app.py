@@ -138,9 +138,10 @@ with st.sidebar:
     # Option to override API URL
     with st.expander("Change API URL"):
         custom_host = st.text_input("Backend Host", value="perisai-api.onrender.com", help="e.g., perisai-api.onrender.com or localhost for development")
-        custom_port = st.text_input("Backend Port", value=API_PORT, help="Usually 8000")
+        custom_port = st.text_input("Backend Port", value="443", help="Usually 443 for cloud, 8000 for localhost")
+        protocol = st.selectbox("Protocol", options=["https", "http"], index=0)
         if st.button("Update API URL"):
-            st.session_state.custom_api_url = f"http://{custom_host}:{custom_port}/chat"
+            st.session_state.custom_api_url = f"{protocol}://{custom_host}:{custom_port}/chat"
             st.success(f"API URL updated to: {st.session_state.custom_api_url}")
             st.rerun()
     
